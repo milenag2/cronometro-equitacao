@@ -77,7 +77,7 @@ void loop(void)
   distanceSensor.startRanging(); // este comando inicia a medição de distância pelo sensor 
   while (!distanceSensor.checkForDataReady())//: Este trecho de código cria um loop que verifica se os dados do sensor estão prontos. Enquanto os dados não estiverem prontos, o programa aguardará por um milissegundo (por meio da funçã
   {
-    delay(0.01);
+    delay(1);
   }
   int distance = distanceSensor.getDistance(); //Este comando obtém a distância medida pelo sensor. Presumivelmente, ele retorna a distância em milímetros e a armazena na variável distance.
   distanceSensor.clearInterrupt();//Esta linha de código parece estar limpando alguma interrupção no sensor de distância. Pode ser necessária para garantir que o sensor esteja pronto para a próxima medição.
