@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<meta http-equiv="refresh" content="0.01" />-->
+  <link rel="icon" href="data:,">
+  <title>CRONÔMETRO</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      color: black;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      background-color: #beb180;
+      position: relative;
+    }
+    h2 {
+      font-size: 50px;
+      border: 15px ridge red;
+      width: fit-content;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    p {
+      font-size: 40px;
+    }
+    .readings {
+      font-size: 120px;
+      position: relative;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .logo{
+      position: relative; 
+      align-content: center;
+      background-image: url(cavalo);
+      background-size: cover;
+      height: 200px;
+      width: 200px;
+      margin-top: 7vh;
+    }
+    .brasao-cav {
+      position: absolute;
+      top: 3vh;
+      left: 3vh;
+      background-image: url(cavalaria);
+      background-size: cover;
+      height: 90px;
+      width: 150px;
+    }
+    .brasao-ime {
+      position: absolute;
+      top: 3vh;
+      right: 3vh;
+      background-image: url(ime);
+      background-size:cover;
+      height: 120px;
+      width: 90px;
+    }
+
+
+</style>
+</head>
+<body>
+
+    <div>  
+        <div class="brasao-cav"></div>
+        <div class="brasao-ime"></div>
+    </div>
+    <div class="logo"></div>
+    <h2>Cronômetro para hipismo</h2>
+<main>
+  <p>
+    TEMPO: <span id="minutos" class="readings">%MINUTOS%</span>:<span id="segundos" class="readings">%SEGUNDOS%</span>:<span id="centesimos" class="readings">%CENTESIMOS%</span>
+  </p>
+
+</main>
+<script>
+
+function updateValues(value) {
+  fetch("/" + value + "2")
+    .then(response => {
+      console.log(response.text);
+      if (response.status === 200) {
+        console.log("status:200");
+        return response.text();
+      } else {
+        throw new Error("Erro na solicitação");
+      }
+    })
+    .then(data => {
+      console.log(data);
+      document.getElementById(value).innerHTML = data;
+    })
+    .catch(error => {
+      console.error("err:"+error);
+    });
+}
+setInterval(function() {
+        updateValues("minutos");
+        updateValues("segundos");
+        updateValues("centesimos");
+      }, 10);
+
+</script>
+</body>
+</html>
